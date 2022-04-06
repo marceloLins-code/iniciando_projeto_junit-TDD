@@ -22,7 +22,7 @@ public class PedidoTeste {
 	@Test
 	public void permitirItemEmPedido() throws Exception {
 		Pedido pedido = new Pedido();
-		pedido.adicionaritem("sabonete", 3.0, 10);		
+		pedido.adicionaritem(new ItemPedido("sabonete", 3.0, 10));		
 	}
 			
 	@Test
@@ -32,7 +32,7 @@ public class PedidoTeste {
 	
 	@Test
 	public void calcularResumoParaItemSemDesconto() throws Exception {
-		pedido.adicionaritem("sabonete", 5.0, 5);
+		pedido.adicionaritem(new ItemPedido("sabonete", 5.0, 5));
 		assertResumoPedido(25.0, 0.0);
 	}
 

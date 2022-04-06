@@ -5,8 +5,8 @@ public class Pedido {
 	private double valorTotal;
 	private double desconto;
 	
-	public void adicionaritem(String descricao, double valUnitario, int qtd) {
-	valorTotal = valUnitario*qtd;	
+	public void adicionaritem(ItemPedido ItemPedido) {
+	valorTotal = ItemPedido.valUnitario*ItemPedido.qtd;	
 	}
 
 	public double valorTotal() {		
