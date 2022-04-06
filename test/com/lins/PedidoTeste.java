@@ -30,11 +30,16 @@ public class PedidoTeste {
 		assertResumoPedido(0.0, 0.0);
 	}
 	
+	
+	
 	@Test
-	public void calcularResumoParaItemSemDesconto() throws Exception {
-		pedido.adicionaritem(new ItemPedido("sabonete", 5.0, 5));
-		assertResumoPedido(25.0, 0.0);
+	public void calcularResumoParaDoisItensSemDesconto() throws Exception {
+		pedido.adicionaritem(new ItemPedido("sabonete", 3.0, 3));
+		pedido.adicionaritem(new ItemPedido("Pasta Dental", 7.0, 3));
+		assertResumoPedido(30.0, 0.0);
 	}
+	
+	
 
 	
 	

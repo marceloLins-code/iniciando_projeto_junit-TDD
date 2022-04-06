@@ -1,16 +1,22 @@
 package com.lins;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pedido {
-	
-	private double valorTotal;
+	//refatorar método
 	private double desconto;
 	
-	public void adicionaritem(ItemPedido ItemPedido) {
-	valorTotal = ItemPedido.valUnitario*ItemPedido.qtd;	
+	private List<ItemPedido> itens = new ArrayList<>();
+	
+	public void adicionaritem(ItemPedido ItemPedido) {		
+		itens.add(ItemPedido);		
 	}
 
-	public double valorTotal() {		
-		return valorTotal;
+	public double valorTotal() {
+	//	valorTotal += ItemPedido.getValUnitario() * ItemPedido.getQtd();
+	return itens.stream().mapToDouble(i -> i.getValUnitario() * i.getQtd()).sum();
+	
 	}
 
 	public double valorDesconto() {
