@@ -5,8 +5,6 @@ import java.util.List;
 
 public class Pedido {
 	
-	private double desconto;
-	
 	private List<ItemPedido> itens = new ArrayList<>();
 	
 	public void adicionaritem(ItemPedido ItemPedido) {		
@@ -19,6 +17,12 @@ public class Pedido {
 	}
 
 	public double valorDesconto() {
+		double desconto = 0;
+		double valorTotal = valorTotal();
+		
+		if (valorTotal > 300.0) {
+			desconto = valorTotal * 0.04;
+		}
 		return desconto;
 	}
 

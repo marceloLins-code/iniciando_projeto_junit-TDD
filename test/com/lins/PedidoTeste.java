@@ -20,7 +20,7 @@ public class PedidoTeste {
 	}
 	
 	@Test
-	public void permitirItemEmPedido() throws Exception {
+	public void devePermitirAdicionarUmItemEmPedido() throws Exception {
 		Pedido pedido = new Pedido();
 		pedido.adicionaritem(new ItemPedido("sabonete", 3.0, 10));		
 	}
@@ -38,6 +38,17 @@ public class PedidoTeste {
 		pedido.adicionaritem(new ItemPedido("Pasta Dental", 7.0, 3));
 		assertResumoPedido(30.0, 0.0);
 	}
+	
+	
+	@Test
+	public void deveAplicarDescontoNaPrimeiraFaixa() throws Exception {
+		pedido.adicionaritem( new ItemPedido("creme", 20.0, 20));
+		assertResumoPedido(400.0, 16.0);
+	}
+	
+	
+	
+	
 	
 	
 
