@@ -15,8 +15,9 @@ public class PedidoTeste {
 		}
 	
 	private void assertResumoPedido(double valorTotal, double desconto) {
-		assertEquals(valorTotal, pedido.valorTotal(), 0.0001);
-		assertEquals(desconto, pedido.valorDesconto(), 0.0001);
+		ResumoPedido resumoPedido = pedido.resumo();
+		assertEquals(valorTotal, resumoPedido.getValorTotal(), 0.0001);
+		assertEquals(desconto, resumoPedido.getDesconto(), 0.0001);
 	}
 	
 	@Test
