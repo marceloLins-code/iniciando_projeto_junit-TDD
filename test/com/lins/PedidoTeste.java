@@ -12,70 +12,62 @@ import com.lins.desconto.CalculaFaixaDeDesconto;
 import com.lins.desconto.SemDesconto;
 
 public class PedidoTeste {
-	
-	private Pedido pedido;
-	
+
+	private PedidoBuilder pedido;
+
 	@Before
 	public void setup() {
-		CalculaFaixaDeDesconto calculaFaixaDeDesconto =
-				new CalculaDescontoTerceirafaixa(new CalculaDescontoSegundaFaixa(
-						new CalculaDescontoPrimeiraFaixa(
-								new SemDesconto(null))));
-		pedido = new Pedido(calculaFaixaDeDesconto);
-		}
-	
+
+		pedido = new PedidoBuilder();
+
+	}
+
 	private void assertResumoPedido(double valorTotal, double desconto) {
-		ResumoPedido resumoPedido = pedido.resumo();
+		ResumoPedido resumoPedido = pedido.contruir().resumo();
 		assertEquals(valorTotal, resumoPedido.getValorTotal(), 0.0001);
 		assertEquals(desconto, resumoPedido.getDesconto(), 0.0001);
 	}
-	
-	@Test
-	public void devePermitirAdicionarUmItemEmPedido() throws Exception {
-		pedido.adicionaritem(new ItemPedido("sabonete", 3.0, 10));		
-	}
-			
+
 	@Test
 	public void calcularValorTotalEDescontoParaPedidoVazio() throws Exception {
 		assertResumoPedido(0.0, 0.0);
 	}
-	
-	
-	
+
+	@Test
+	public void deveCalcularResumoParaUmItensSemDesconto() throws Exception {
+		pedido.comItem(5.0, 5);
+		assertResumoPedido(25.0, 0.0);
+	}
+
 	@Test
 	public void deveCalcularResumoParaDoisItensSemDesconto() throws Exception {
-		pedido.adicionaritem(new ItemPedido("sabonete", 3.0, 3));
-		pedido.adicionaritem(new ItemPedido("Pasta Dental", 7.0, 3));
+		pedido.comItem(3.0, 3)
+			.comItem(7.0, 3);
+
 		assertResumoPedido(30.0, 0.0);
 	}
-	
-	
+
 	@Test
 	public void deveAplicarDescontoNaPrimeiraFaixa() throws Exception {
-		pedido.adicionaritem( new ItemPedido("creme", 20.0, 20));
+		pedido.comItem(20.0, 20);
 		assertResumoPedido(400.0, 16.0);
 	}
-	
+
 	@Test
 	public void deveAplicarDescontoNaSegundaFaixa() throws Exception {
-		pedido.adicionaritem( new ItemPedido("shampoo", 15.0, 30));
-		pedido.adicionaritem( new ItemPedido("Oleo", 15.0, 30));
+		pedido.comItem(15.0, 30)
+			.comItem(15.0, 30);
 
 		assertResumoPedido(900.0, 54.0);
 	}
-	
-	
+
 	@Test
 	public void deveAplicarDescontoNaTerceiraFaixa() throws Exception {
-		pedido.adicionaritem( new ItemPedido("creme", 15.0, 30));
-		pedido.adicionaritem( new ItemPedido("Oleo", 15.0, 30));
-		pedido.adicionaritem( new ItemPedido("shampoo", 10.0, 30));
-
+		pedido.comItem(15.0, 30)
+			.comItem(15.0, 30)
+			.comItem(10.0, 30);
 
 		assertResumoPedido(1200.0, 96.0);
 	}
-
-	
-	
 
 }
