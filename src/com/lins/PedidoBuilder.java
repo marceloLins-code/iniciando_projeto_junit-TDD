@@ -7,6 +7,7 @@ import com.lins.desconto.CalculaFaixaDeDesconto;
 import com.lins.desconto.SemDesconto;
 
 public class PedidoBuilder {
+	//**
 	
 	private Pedido instancia;
 
