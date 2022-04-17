@@ -1,15 +1,9 @@
 package com.lins;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import com.lins.desconto.CalculaDescontoPrimeiraFaixa;
-import com.lins.desconto.CalculaDescontoSegundaFaixa;
-import com.lins.desconto.CalculaDescontoTerceirafaixa;
-import com.lins.desconto.CalculaFaixaDeDesconto;
-import com.lins.desconto.SemDesconto;
 
 public class PedidoTeste {
 
@@ -24,13 +18,23 @@ public class PedidoTeste {
 
 	private void assertResumoPedido(double valorTotal, double desconto) {
 		ResumoPedido resumoPedido = pedido.contruir().resumo();
-		assertEquals(valorTotal, resumoPedido.getValorTotal(), 0.0001);
-		assertEquals(desconto, resumoPedido.getDesconto(), 0.0001);
+		
+		
+//		assertEquals(valorTotal, resumoPedido.getValorTotal(), 0.0001);
+//		assertEquals(desconto, resumoPedido.getDesconto(), 0.0001);
+		
+		assertEquals(new ResumoPedido(valorTotal, desconto), resumoPedido);
 	}
 
 	@Test
 	public void calcularValorTotalEDescontoParaPedidoVazio() throws Exception {
 		assertResumoPedido(0.0, 0.0);
+	}
+	
+	@Test(expected = QuantidadeDeItensInvalidaException.class)
+	public void naoAceitarPedidosComQuantidadesNegativas() throws Exception {
+		pedido.comItem(0.0, -1);
+		
 	}
 
 	@Test

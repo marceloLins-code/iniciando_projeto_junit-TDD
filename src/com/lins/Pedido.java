@@ -17,8 +17,15 @@ public class Pedido {
 		this.calculaFaixaDeDesconto = calculaFaixaDeDesconto;
 	}
 
-	public void adicionaritem(ItemPedido ItemPedido) {
-		itens.add(ItemPedido);
+	public void adicionaritem(ItemPedido itemPedido) {
+		validarQuantidadeItens(itemPedido);
+		itens.add(itemPedido);
+	}
+
+	private void validarQuantidadeItens(ItemPedido itemPedido) {
+		if (itemPedido.getQtd() < 0) {
+			throw new QuantidadeDeItensInvalidaException();
+		}
 	}
 
 	public ResumoPedido resumo() {
